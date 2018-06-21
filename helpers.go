@@ -12,7 +12,7 @@ func implementsException(i reflect.Type) bool {
 func recoveredException(r interface{}) exception {
 	if !implementsException(reflect.TypeOf(r)) {
 		// Warn as non m3lsh error
-		fmt.Printf("exception %s handled by m3lsh", r)
+		fmt.Printf("exception %s handled by m3lsh\n", r)
 		err := &BaseException{Message: fmt.Sprintf("%v", r)}
 		formatException(err)
 		return err
