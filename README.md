@@ -13,31 +13,31 @@ Or using dep, add to your Gopkg.toml
 
 ```
 [[constraint]]
-  name = "github.com/mohamed-essam/m3lsh"
-  revision = "<latest master revision>"
+	name = "github.com/mohamed-essam/m3lsh"
+	revision = "<latest master revision>"
 ```
 
 ## Usage
 
 ```
 import (
-  "m3lsh"
-  "fmt"
+	"m3lsh"
+	"fmt"
 )
 
 type MyException struct {
-  m3lsh.BaseException
+	m3lsh.BaseException
 }
 
 func main() {
 	m3lsh.TryCatch(func() {
-    m3lsh.Throw(&MyException{}, "Cats")
+		m3lsh.Throw(&MyException{}, "Cats")
 	}, m3lsh.Catcher(&MyException{}, func(e interface{}){
-    fmt.Printf("%T", ex) // *MyException
-    ex := e.(*MyException)
-    fmt.Printf(ex.Message) // Cats
-  }), m3lsh.Catcher(&m3lsh.BaseException{}, func(e interface{}){
-    // This will catch all exceptions other than MyException
-  })
+		fmt.Printf("%T", ex) // *MyException
+		ex := e.(*MyException)
+		fmt.Printf(ex.Message) // Cats
+	}), m3lsh.Catcher(&m3lsh.BaseException{}, func(e interface{}){
+		// This will catch all exceptions other than MyException
+	})
 }
 ```
