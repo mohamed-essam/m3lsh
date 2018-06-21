@@ -4,11 +4,13 @@ import (
 	"reflect"
 )
 
-type catcher struct {
+// CatcherWrapper a wrapper for an exception catch function
+type CatcherWrapper struct {
 	typ reflect.Type
 	fn  catchFn
 }
 
-func Catcher(typ Exception, fn catchFn) *catcher {
-	return &catcher{typ: reflect.TypeOf(typ), fn: fn}
+// Catcher generate CatcherWrapper for a specific exception type with a handler
+func Catcher(typ exception, fn catchFn) *CatcherWrapper {
+	return &CatcherWrapper{typ: reflect.TypeOf(typ), fn: fn}
 }

@@ -2,18 +2,20 @@ package m3lsh
 
 import "fmt"
 
+// BaseException parent of all exceptions, implements some basic methods and acts as a catch-all exception type
 type BaseException struct {
 	Message    string
 	thread     threadInfo
 	stackTrace []stackTraceLine
 }
 
+// Stacktrace get printable stack trace lines
 func (b BaseException) Stacktrace() []string {
 	ret := make([]string, 1+len(b.stackTrace))
-	ret[0] = b.thread.Format()
+	ret[0] = b.thread.format()
 
 	for idx, x := range b.stackTrace {
-		ret[idx+1] = x.Format()
+		ret[idx+1] = x.format()
 	}
 
 	return ret
@@ -32,12 +34,12 @@ func (b *BaseException) setMessage(message string) {
 }
 
 type threadInfo struct {
-	routineId    int64
+	routineID    int64
 	routineState string
 }
 
-func (t threadInfo) Format() string {
-	return fmt.Sprintf("goroutine %d [%s]", t.routineId, t.routineState)
+func (t threadInfo) format() string {
+	return fmt.Sprintf("goroutine %d [%s]", t.routineID, t.routineState)
 }
 
 type stackTraceLine struct {
@@ -47,6 +49,6 @@ type stackTraceLine struct {
 	method string
 }
 
-func (s stackTraceLine) Format() string {
+func (s stackTraceLine) format() string {
 	return fmt.Sprintf("%s in %s:%d in package %s", s.method, s.file, s.line, s.pkg)
 }

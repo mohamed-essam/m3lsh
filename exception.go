@@ -6,18 +6,18 @@ import (
 	"strings"
 )
 
-type Exception interface {
+type exception interface {
 	Stacktrace() []string
 	setThread(threadInfo)
 	setStack([]stackTraceLine)
 	setMessage(string)
 }
 
-func formatException(ex Exception) {
+func formatException(ex exception) {
 	vals := strings.Split(string(debug.Stack()), "\n")
 
 	routineInfo := strings.Split(vals[0], " ")
-	routineId, _ := strconv.ParseInt(routineInfo[1], 10, 64)
+	routineID, _ := strconv.ParseInt(routineInfo[1], 10, 64)
 	routineState := routineInfo[2][1 : len(routineInfo[2])-2]
 
 	lines := make([]stackTraceLine, len(vals)/2)
@@ -42,7 +42,7 @@ func formatException(ex Exception) {
 		}
 	}
 
-	thread := threadInfo{routineId: routineId, routineState: routineState}
+	thread := threadInfo{routineID: routineID, routineState: routineState}
 
 	ex.setStack(lines)
 	ex.setThread(thread)

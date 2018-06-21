@@ -7,7 +7,8 @@ import (
 type tryFn func()
 type catchFn func(interface{})
 
-func Try(function tryFn) (err Exception) {
+// Try catch all errors and exceptions and return them without failing
+func Try(function tryFn) (err exception) {
 	defer func() {
 		if r := recover(); r != nil {
 			err = recoveredException(r)
@@ -17,15 +18,16 @@ func Try(function tryFn) (err Exception) {
 	return nil
 }
 
-func TryCatch(function tryFn, catchers ...*catcher) (err Exception) {
+// TryCatch catch errors specified in catchers, if an *m3lsh.BaseException is given it takes any kind of exception, otherwise, exception Type must exactly match given type
+func TryCatch(function tryFn, catchers ...*CatcherWrapper) (err exception) {
 	defer func() {
 		if r := recover(); r != nil {
 			err = recoveredException(r)
 			errType := reflect.TypeOf(err)
 			// Find if any catchers fit
-			for _, catcher := range catchers {
-				if isBaseException(catcher.typ) || catcher.typ == errType {
-					catcher.fn(err)
+			for _, CatcherWrapper := range catchers {
+				if isBaseException(CatcherWrapper.typ) || CatcherWrapper.typ == errType {
+					CatcherWrapper.fn(err)
 					return
 				}
 			}
@@ -36,7 +38,8 @@ func TryCatch(function tryFn, catchers ...*catcher) (err Exception) {
 	return nil
 }
 
-func Throw(ex Exception, message string) {
+// Throw Format and throw error message with type and message
+func Throw(ex exception, message string) {
 	ex.setMessage(message)
 	formatException(ex)
 	panic(ex)
