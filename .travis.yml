@@ -2,3 +2,9 @@ language: go
 go:
   - "1.10.x"
   - "1.8.x"
+before_install:
+  - go get github.com/schrej/godacov
+script:
+  - go test -v -coverprofile=coverage.out ./...
+after_script:
+  - godacov -t $CODACY_PROJECT_TOKEN -r ./coverage.out -c $TRAVIS_COMMIT
