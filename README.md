@@ -1,6 +1,6 @@
 # M3lsh
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/63fcfa6390da47b7a5d117e6dea568b0)](https://www.codacy.com/app/messam/m3lsh?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mohamed-essam/m3lsh&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/63fcfa6390da47b7a5d117e6dea568b0)](https://www.codacy.com/app/messam/m3lsh?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mohamed-essam/m3lsh&amp;utm_campaign=Badge_Grade) [![Build Status](https://travis-ci.org/mohamed-essam/m3lsh.svg?branch=master)](https://travis-ci.org/mohamed-essam/m3lsh)
 
 A library for exception handling in Golang, it simply uses `panic` with the ability to `Try`/`TryCatch` exceptions and `Throw` custom exceptions with details of stack trace and thread info.
 You can use multiple catch "statements", only the first matching statement will be executed.
